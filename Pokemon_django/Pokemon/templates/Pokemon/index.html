@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <title>Pokémons</title>
+    <style>
+        .card {
+            display: flex;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            overflow: hidden;
+            margin: 16px;
+            width: 300px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            flex-direction: column;
+            align-items: center;
+          }
+
+        .flex {
+            display: flex;
+        }
+
+        .allCards {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+
+        .txtCards {
+            font-size:1.2em;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 10px 40px 10px 30px; 
+            border: 1px solid #ccc;
+            border-radius: 20px; 
+            outline: none;
+            transition: border-color 0.3s ease;
+            width: 200px;
+        }
+
+        .search-button {
+            margin-top:1em;
+            background-color: #3498db;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+          }
+        .search-button:hover {
+        background-color: #2078af;
+        }
+
+        body {
+            background-image: url("pokedex.png");
+        }
+    </style>
+</head>
+
+<body>
+    <form method="get" action="{% url 'index_pokedex' %}">
+        <input class="search-input" type="text" name="search" placeholder="Rechercher un Pokémon..." value="{{ search_query }}">
+        <button class="search-button" type="submit">Rechercher</button>
+    </form>
+    <h1>Mon Pokédex</h1>
+    <p>Total de Pokémon : {{ total_pokemon }}</p>
+    <p>Page {{ current_page }} sur {{ total_pages }}</p>
+
+    <div class="allCards">
+        {% for pokemon in pokemons %}
+            <div class="card">
+                <h2>{{ pokemon.name|capfirst }}</h2>
+                <img src="{{ pokemon.image }}" alt="{{ pokemon.name }}" width="50%">
+                <p class="txtCards">N° dans le Pokédex : {{ pokemon.pokedex_number }}</p>
+                <!-- Bouton Afficher détails -->
+                <a href="{% url 'detail_pokemon' pokemon.pokedex_number %}">Détails</a>
+            </div>
+        {% endfor %}
+    </div>
+
+    <div>
+        {% if current_page > 1 %}
+            <a href="?page={{ current_page|add:"-1" }}">Précédent</a>
+        {% endif %}
+        {% if current_page < total_pages %}
+            <a href="?page={{ current_page|add:"1" }}">Suivant</a>
+        {% endif %}
+    </div>
+</body>
+</html>

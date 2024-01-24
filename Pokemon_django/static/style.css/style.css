@@ -1,0 +1,65 @@
+/********************************************************************************
+********************************* GENERAL ***************************************
+*********************************************************************************/
+
+
+
+
+
+
+
+
+/********************************************************************************
+********************************* POKEDEX ***************************************
+*********************************************************************************/
+
+.card {
+    display: flex;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    overflow: hidden;
+    margin: 16px;
+    width: 300px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    flex-direction: column;
+    align-items: center;
+    }
+
+.flex {
+    display: flex;
+}
+
+.allCards {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.txtCards {
+    font-size:1.2em;
+}
+
+.search-input {
+    width: 100%;
+    padding: 10px 40px 10px 30px; 
+    border: 1px solid #ccc;
+    border-radius: 20px; 
+    outline: none;
+    transition: border-color 0.3s ease;
+    width: 200px;
+}
+
+.search-button {
+    margin-top:1em;
+    background-color: #3498db;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    }
+
+.search-button:hover {
+    background-color: #2078af;
+}

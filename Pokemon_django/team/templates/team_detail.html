@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Team Details</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 20px;
+        }
+        
+        .container {
+            width: 80%;
+            margin: auto;
+            background-color: #fff;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        th,
+        td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        
+        th {
+            background-color: #007bff;
+            color: white;
+        }
+        
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Team: {{ team.name }}</h1>
+        <h2>Pokémons in {{ team.name }}</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Pokémon Name</th>
+                    <!-- Add more headers if you have more attributes to show -->
+                </tr>
+            </thead>
+            <tbody>
+                {% for pokemon in pokemons %}
+                <tr>
+                    <td>{{ pokemon.name }}</td>
+                    <td><img src="{{ pokemon.image }}" alt="Image de {{ pokemon.name }}"></td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="2">No Pokémon in this team.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</body>
+
+</html>

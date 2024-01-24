@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Add Pokémon to Team</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        
+        .container {
+            width: 80%;
+            margin: auto;
+            padding: 20px;
+        }
+        
+        form {
+            margin-top: 20px;
+        }
+        
+        label,
+        select,
+        button {
+            display: block;
+            margin-top: 10px;
+        }
+        .section-home {
+            width: 100%;
+            background-size: cover;
+            background-position: center;
+        }
+        .navbar {
+            overflow: hidden;
+            background-color: #333;
+        }
+        .navbar a {
+            float: left;
+            display: block;
+            color: white;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+        }
+        .navbar a.right {
+            float: right;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <h1>Add Pokémon to Team: {{ team.name }}</h1>
+        <form method="post" action="{% url 'add_pokemon_to_team' pokemon_number %}">
+            {% csrf_token %}
+            <label for="teamId">Choisissez une équipe :</label>
+            <select name="teamId" id="teamId">
+                {% for team in teams %}
+                    <option value="{{ team.id }}">{{ team.name }}</option>
+                {% endfor %}
+            </select>
+        
+            <h3>Sélectionnez jusqu'à 4 attaques :</h3>
+            {% for attack in attacks %}
+                <input type="checkbox" name="selected_attacks" value="{{ attack }}">
+                <label>{{ attack }}</label><br>
+            {% endfor %}
+        
+            <button class="addTeam" type="submit">Ajouter à l'équipe</button>
+        </form>
+        
+        
+    </div>
+</body>
+
+</html>

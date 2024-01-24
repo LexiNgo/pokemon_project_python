@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Delete Team Confirmation</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        
+        .container {
+            width: 80%;
+            margin: auto;
+            padding: 20px;
+        }
+        
+        .button {
+            margin-top: 20px;
+            padding: 10px 15px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        
+        .confirm {
+            background-color: #ff4444;
+            color: white;
+            border: none;
+        }
+        
+        .cancel {
+            background-color: #cccccc;
+            color: black;
+            border: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Confirm Delete</h1>
+        <p>Are you sure you want to delete the team '{{ team_name }}'?</p>
+        <form method="post">
+            {% csrf_token %}
+            <input type="hidden" name="team_name" value="{{ team_name }}">
+            <button type="submit" class="button confirm">Confirm Delete</button>
+        </form>
+        <a href="{% url 'some_view_to_cancel' %}" class="button cancel">Cancel</a>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Création d'Équipe Pokémon</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Orbitron', sans-serif;
+            background-color: #e9ecef;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            color: #495057;
+        }
+        
+        .form-container {
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+            width: 350px;
+            text-align: center;
+        }
+        
+        h1 {
+            font-size: 24px;
+            color: #007bff;
+            margin-bottom: 24px;
+        }
+        
+        input[type="text"] {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 20px;
+            border: 2px solid #dee2e6;
+            border-radius: 5px;
+            box-sizing: border-box;
+            transition: border-color 0.3s;
+        }
+        
+        input[type="text"]:focus {
+            border-color: #007bff;
+            outline: none;
+        }
+        
+        button[type="submit"] {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 15px 32px;
+            text-align: center;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            width: 100%;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        
+        button[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 10px;
+            font-size: 16px;
+        }
+        
+        .view-all-teams-section {
+            margin-top: 20px;
+            background-color: #f8f9fa;
+            padding: 15px;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        
+        .view-all-teams-section p {
+            margin: 0;
+            font-size: 14px;
+        }
+        
+        .view-all-teams-section a {
+            color: #007bff;
+            text-decoration: none;
+        }
+        
+        .view-all-teams-section a:hover {
+            text-decoration: underline;
+        }
+        
+        .messages {
+            width: 100%;
+            margin-bottom: 20px;
+        }
+        
+        .messages div {
+            padding: 10px;
+            border-radius: 5px;
+            color: white;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+        
+        .success {
+            background-color: #28a745;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="form-container">
+        <h1>Création d'Équipe</h1>
+        <form method="post">
+            {% csrf_token %}
+            <label for="team_name">Team Name:</label>
+            <input type="text" id="team_name" name="team_name" required>
+            <button type="submit">Create Team</button>
+        </form>
+
+        <div class="view-all-teams-section">
+            <p>You can view all the teams by clicking <a href="http://127.0.0.1:8000/team/all/">here</a>.</p>
+        </div>
+    </div>
+    {% if messages %}
+    <div class="messages">
+        {% for message in messages %}
+        <div class="{{ message.tags }}">{{ message }}</div>
+        {% endfor %}
+    </div>
+    {% endif %}
+</body>
+
+</html>

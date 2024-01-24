@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Détails du Pokémon</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron&display=swap" rel="stylesheet">
+
+    <style>
+        h1 {
+            font-family: 'Press Start 2P', cursive;
+            padding-top: 18px;
+            text-align: center;
+            background: linear-gradient(70deg, blue, white);
+            margin: 0;
+            padding: 20px;
+            border-bottom: 1px solid black;
+        }
+        
+        h2 {
+            font-family: 'Press Start 2P', cursive;
+            font-size: 18px;
+            margin-bottom: 0;
+            color: darkgrey;
+        }
+        
+        h3 {
+            font-family: 'Orbitron', sans-serif;
+        }
+        
+        .detailsCard {
+            text-align: center;
+            border: 2px solid black;
+            width: 50%;
+            margin: auto;
+            margin-top: 1em;
+        }
+        
+        img {
+            width: 30%;
+        }
+        
+        .addTeam {
+            padding: 10px;
+            margin: 15px 0;
+            font-family: 'Orbitron', sans-serif;
+            cursor: pointer;
+        }
+        
+        .addTeam:hover {
+            background: #E8DAEF;
+        }
+        
+        table,
+        td,
+        tr,
+        thead,
+        tbody {
+            border: 1px solid black;
+            border-collapse: collapse;
+        }
+        
+        td:first-child {
+            font-weight: bold;
+        }
+        
+        table {
+            margin: auto;
+        }
+        
+        td {
+            padding: 6px 50px;
+            font-size: 13px;
+        }
+        
+        .section-home {
+            width: 100%;
+            background-size: cover;
+            background-position: center;
+        }
+        
+        .navbar {
+            overflow: hidden;
+            background-color: #333;
+        }
+        
+        .navbar a {
+            float: left;
+            display: block;
+            color: white;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+        }
+        
+        .navbar a.right {
+            float: right;
+        }
+        
+        .changePage {
+            display: flex;
+            justify-content: space-between;
+            padding: 0 1.5em;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 15px;
+            margin-top: 2em;
+        }
+        
+        a {
+            text-decoration: none;
+            color: black;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="section-home">
+        <nav class="navbar">
+            <a href="/pokedex">Pokedex</a>
+            <a href="/team/create">Team</a>
+            <a href="/combat">Combat</a>
+            <a href="#inscription" class="right">Inscription</a>
+            <a href="#connexion" class="right">Connexion</a>
+        </nav>
+    </div>   
+    <div class="changePage">
+        <a href="{% url 'detail_pokemon' pokemon.number|add:" -1 " %}">Poké. Précédent</a>
+        <a href="{% url 'detail_pokemon' pokemon.number|add:" 1 " %}">Poké. Suivant</a>
+    </div>
+    <div class="detailsCard">
+        <h1>{{ pokemon.name|capfirst }}</h1>
+        <img src="{{ pokemon.image }}" alt="Image de {{ pokemon.name }}">
+        <h2>Fiche détaillée</h2>
+        <h3>Généralités</h3>
+        <table>
+            <tbody>
+                <tr>
+                    <td>Type(s)</td>
+                    <td>{{ pokemon.types|join:", " }}</td>
+                </tr>
+                <tr>
+                    <td>Taille</td>
+                    <td>{{ pokemon.height }} dm</td>
+                </tr>
+                <tr>
+                    <td>Poids</td>
+                    <td>{{ pokemon.weight }} hg</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h3>Caractéristiques</h3>
+        <table>
+            <tbody>
+                {% for stat in pokemon.stats_of %}
+                <tr>
+                    <td>{{ stat.name|capfirst }}</td>
+                    <td>{{ stat.value }}</td>
+                    <tr>
+                        {% endfor %}
+            </tbody>
+        </table>
+        <form method="post" action="{% url 'add_pokemon_to_team' pokemon.number %}">
+            {% csrf_token %}
+            <label for="teamId">Choisissez une équipe :</label>
+            <select name="teamId" id="teamId">
+                {% for team in teams %}
+                    <option value="{{ team.id }}">{{ team.name }}</option>
+                {% endfor %}
+            </select>
+        
+            <!-- Ajoutez ici la sélection des attaques si nécessaire -->
+        
+            <button class="addTeam" type="submit">Ajouter à l'équipe</button>
+        </form>        
+    </div>
+</body>
+
+</html>
